@@ -84,7 +84,25 @@ function Home() {
 
           {books.length === 0 ? (
             <div className="text-center py-4">
-              <p className="text-muted fs-5">No books found. Add some books to your collection!</p>
+              <p className="text-muted fs-5">
+                {authors.length === 0 ? (
+                  <>
+                    You need to add authors before adding books! <br />
+                    Click to{' '}
+                    <Link href="/authors" className="text-decoration-none">
+                      Add Your First Author
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    No books found. Add some books to your collection! <br />
+                    Click to{' '}
+                    <Link href="/books" className="text-decoration-none">
+                      Add Your First Book
+                    </Link>
+                  </>
+                )}
+              </p>
             </div>
           ) : (
             <div className="row g-4">
@@ -107,7 +125,13 @@ function Home() {
 
           {authors.length === 0 ? (
             <div className="text-center py-4">
-              <p className="text-muted fs-5">No authors found. Add some authors to your collection!</p>
+              <p className="text-muted fs-5">
+                No authors found. Add some authors to your collection! <br />
+                Click to{' '}
+                <Link href="/authors" className="text-decoration-none">
+                  Add Your First Author
+                </Link>
+              </p>
             </div>
           ) : (
             <div className="row g-4">

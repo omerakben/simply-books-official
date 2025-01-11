@@ -82,12 +82,7 @@ export default function AuthorsPage() {
 
         {authors.length === 0 ? (
           <div className="text-center py-5">
-            <p className="text-muted fs-5">No authors found. Add an author to your collection!</p>
-            <Link href="/author/new" passHref>
-              <Button variant="success" className="rounded-pill px-4">
-                Add New Author
-              </Button>
-            </Link>
+            <p className="text-muted fs-5">No authors found. Add an author to your collection! </p>
           </div>
         ) : (
           <div className="row g-4">
