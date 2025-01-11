@@ -6,7 +6,7 @@
 }
 
 .bookCard:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .imageContainer {

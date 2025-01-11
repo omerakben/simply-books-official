@@ -10,7 +10,7 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Slight lift effect on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
