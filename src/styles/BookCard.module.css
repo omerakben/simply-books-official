@@ -12,7 +12,9 @@
 .imageContainer {
   position: relative;
   width: 100%;
+  height: 300px;
   background-color: #f8f9fa;
+  overflow: hidden;
 }
 
 .bookImage {
@@ -28,6 +30,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -44,7 +47,10 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   line-clamp: 3;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  max-height: 4.5em;
+  margin-bottom: 1rem;
 }
 
 .saleTag {

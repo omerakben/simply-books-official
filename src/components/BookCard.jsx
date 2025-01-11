@@ -1,5 +1,6 @@
 'use client';
 
+import styles from '@/styles/BookCard.module.css';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
@@ -17,13 +18,13 @@ export default function BookCard({ bookObj }) {
   }, []);
 
   return (
-    <Card className="h-100 border-0 shadow-sm book-card">
+    <Card className={styles.bookCard}>
       {/* Image container with fixed height and hover effects */}
-      <div className="position-relative overflow-hidden" style={{ height: '300px' }}>
+      <div className={styles.imageContainer}>
         <Image
           src={imgError ? '/Books.png' : bookObj.image}
           alt={bookObj.title}
-          className="book-image"
+          className={styles.bookImage}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{
@@ -35,17 +36,17 @@ export default function BookCard({ bookObj }) {
         />
         {/* Sale badge shown conditionally */}
         {bookObj.sale && (
-          <Badge bg="danger" pill className="position-absolute top-0 end-0 m-3 px-3 py-2">
+          <Badge bg="danger" pill className={`position-absolute ${styles.saleTag}`}>
             On Sale
           </Badge>
         )}
       </div>
 
       {/* Card content */}
-      <Card.Body className="text-center p-3">
-        <Card.Title className="h5 mb-2 truncate-2-lines">{bookObj.title || 'Untitled Book'}</Card.Title>
-        <Card.Subtitle className="text-success fw-bold mb-2">${typeof bookObj.price === 'string' ? bookObj.price : '0.00'}</Card.Subtitle>
-        <Card.Text className="text-muted truncate-3-lines">{bookObj.description || 'No description available'}</Card.Text>
+      <Card.Body className="p-3">
+        <Card.Title className={styles.bookTitle}>{bookObj.title || 'Untitled Book'}</Card.Title>
+        <Card.Subtitle className={`${styles.bookPrice} mb-2`}>${typeof bookObj.price === 'string' ? bookObj.price : '0.00'}</Card.Subtitle>
+        <Card.Text className={styles.bookDescription}>{bookObj.description || 'No description available'}</Card.Text>
       </Card.Body>
     </Card>
   );
