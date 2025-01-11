@@ -1,22 +1,29 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { getSingleBook } from '@/api/bookData';
 import BookForm from '@/components/forms/BookForm';
+import { useAuth } from '@/utils/context/authContext';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 
 export default function EditBook({ params }) {
   const [editItem, setEditItem] = useState({});
-  // TODO: grab the firebasekey
+  const { user } = useAuth();
+  // grab the firebasekey
   const { firebaseKey } = params;
 
-  // TODO: make a call to the API to get the book data
+  // make a call to the API to get the book data
   useEffect(() => {
     getSingleBook(firebaseKey).then(setEditItem);
   }, [firebaseKey]);
 
-  // TODO: pass object to form
-  return <BookForm obj={editItem} />;
+  // pass object to form
+  return (
+    <div className="container">
+      <h1>Edit Book</h1>
+      <BookForm obj={editItem} user={user} />
+    </div>
+  );
 }
 
 EditBook.propTypes = {
