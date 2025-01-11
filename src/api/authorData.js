@@ -90,7 +90,7 @@ const updateAuthor = (payload) =>
 
 const getAuthorBooks = (authorId) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json?orderBy="author_id"&equalTo="${authorId}"`, {
+    fetch(`${endpoint}/books.json`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +99,8 @@ const getAuthorBooks = (authorId) =>
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          resolve(Object.values(data));
+          const books = Object.values(data).filter((book) => book.author_id === authorId);
+          resolve(books);
         } else {
           resolve([]);
         }

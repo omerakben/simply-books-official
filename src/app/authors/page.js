@@ -69,10 +69,10 @@ export default function AuthorsPage() {
   }
 
   return (
-    <div className="authors-page py-5">
-      <Container>
-        <div className="d-flex justify-content-between align-items-center mb-5">
-          <h1 className="display-4 fw-bold mb-0">Authors</h1>
+    <div className="bg-white min-vh-100">
+      <div className="container py-5">
+        <div className="text-center mb-4">
+          <h1 className="display-4 fw-bold mb-4">Authors</h1>
           <Link href="/author/new" passHref>
             <Button variant="success" className="rounded-pill px-4 py-2">
               Add New Author
@@ -82,7 +82,7 @@ export default function AuthorsPage() {
 
         {authors.length === 0 ? (
           <div className="text-center py-5">
-            <p className="text-muted fs-5">No authors found. Add some authors to your collection!</p>
+            <p className="text-muted fs-5">No authors found. Add an author to your collection!</p>
             <Link href="/author/new" passHref>
               <Button variant="success" className="rounded-pill px-4">
                 Add New Author
@@ -100,7 +100,7 @@ export default function AuthorsPage() {
             ))}
           </div>
         )}
-      </Container>
+      </div>
     </div>
   );
 }

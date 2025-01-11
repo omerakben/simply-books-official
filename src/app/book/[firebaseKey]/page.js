@@ -50,32 +50,40 @@ export default function ViewBook({ params }) {
           </div>
           <div className="row">
             <div className="col-md-4">
-              <Image src={bookDetails.image} alt={bookDetails.title} width={300} height={400} className="rounded-3 w-100 h-auto" style={{ objectFit: 'cover' }} />
+              <Image src={bookDetails.image || '/bookcase-logo.png'} alt={bookDetails.title} width={300} height={400} className="rounded-3 w-100 h-auto" style={{ objectFit: 'cover' }} />
             </div>
             <div className="col-md-8">
-              <div className="d-flex align-items-center gap-2 mb-3">{bookDetails.favorite && <Image src="/images/favorite.svg" alt="Favorite" width={24} height={24} />}</div>
-              {bookDetails.sale && (
-                <div className="d-flex align-items-center gap-2 mb-3">
-                  <Image src="/images/on-sale.svg" alt="On Sale" width={24} height={24} />
-                  <span className="badge bg-danger">On Sale</span>
-                </div>
-              )}
-              <p className="fs-4 text-success fw-bold mb-3">${bookDetails.price}</p>
-              <p className="fs-5 mb-4">{bookDetails.description}</p>
-              <div className="d-flex gap-2">
-                <span className="badge bg-secondary d-flex align-items-center gap-2">
-                  <Image src="/images/add-author.svg" alt="Author" width={24} height={24} />
-                  {bookDetails.author}
-                </span>
-                {bookDetails.email && (
-                  <span className="badge bg-secondary">
-                    📧{' '}
-                    <a href={`mailto:${bookDetails.email}`} className="text-white text-decoration-none">
-                      {bookDetails.email}
-                    </a>
-                  </span>
+              <div className="d-flex flex-wrap gap-3 mb-4">
+                {bookDetails.favorite && (
+                  <div className="d-flex align-items-center gap-2">
+                    <Image src="/images/favorite.svg" alt="Favorite" width={24} height={24} />
+                    <span className="badge bg-success">Favorite</span>
+                  </div>
+                )}
+                {bookDetails.sale && (
+                  <div className="d-flex align-items-center gap-2">
+                    <Image src="/images/on-sale.svg" alt="On Sale" width={24} height={24} />
+                    <span className="badge bg-danger">On Sale</span>
+                  </div>
                 )}
               </div>
+              <p className="fs-4 text-success fw-bold mb-3">${bookDetails.price || '0.00'}</p>
+              <p className="fs-5 mb-4">{bookDetails.description || 'No description available'}</p>
+
+              {/* Author Information */}
+              {bookDetails.authorObject ? (
+                <Link href={`/author/${bookDetails.authorObject.firebaseKey}`} className="text-decoration-none">
+                  <span className="badge bg-secondary d-inline-flex align-items-center gap-2">
+                    <Image src="/images/add-author.svg" alt="Author" width={24} height={24} />
+                    {`${bookDetails.authorObject.first_name} ${bookDetails.authorObject.last_name}`}
+                  </span>
+                </Link>
+              ) : (
+                <span className="badge bg-secondary d-inline-flex align-items-center gap-2">
+                  <Image src="/images/add-author.svg" alt="Author" width={24} height={24} />
+                  No Author Assigned
+                </span>
+              )}
             </div>
           </div>
         </Card.Body>

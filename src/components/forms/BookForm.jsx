@@ -64,8 +64,9 @@ function BookForm({ obj = initialState }) {
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
-        <Form.Control type="url" placeholder="Enter an image url" name="image" value={formInput.image} onChange={handleChange} required />
+      <FloatingLabel controlId="floatingInput2" label="Image URL (optional)" className="mb-3">
+        <Form.Control type="url" placeholder="Enter image URL" name="image" value={formInput.image} onChange={handleChange} />
+        <Form.Text className="text-muted">Leave empty to use default book image</Form.Text>
       </FloatingLabel>
 
       {/* PRICE INPUT  */}

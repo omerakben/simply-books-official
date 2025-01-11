@@ -22,7 +22,7 @@ export default function BookCard({ bookObj }) {
       {/* Image container with fixed height and hover effects */}
       <div className={styles.imageContainer}>
         <Image
-          src={imgError ? '/Books.png' : bookObj.image}
+          src={imgError ? '/bookcase-logo.png' : bookObj.image}
           alt={bookObj.title}
           className={styles.bookImage}
           fill
