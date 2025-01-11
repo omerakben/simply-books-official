@@ -1,0 +1,37 @@
+// Main theme colors for the application
+$primary: #407B53;    // Main brand color - green
+$secondary: #F1C86F;  // Accent color - gold
+$success: #53AF67;    // Success state - light green
+$danger: #dc3545;     // Error state - red
+$warning: #ffc107;    // Warning state - amber
+$info: #0dcaf0;       // Info state - blue
+$light: #f8f9fa;      // Light background
+$dark: #212529;       // Dark text color
+
+// Custom color palette for bookcase theme
+$bookcase: (
+  "brown": #776d5a,    // Main background brown
+  "darkBrown": #453f35 // Darker accent brown
+);
+
+// Card styling defaults
+$card-border-radius: 1rem;
+$card-border-width: 0;
+$card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+// System font stack for better performance
+$font-family-base: "Segoe UI", Roboto, sans-serf;
+
+// Spacing scale for consistent margins and padding
+$spacer: 1rem;
+$spacers: (
+  0: 0,               // No spacing
+  1: $spacer * 0.25,  // Tiny spacing - 4px
+  2: $spacer * 0.5,   // Small spacing - 8px
+  3: $spacer,         // Medium spacing - 16px
+  4: $spacer * 1.5,   // Large spacing - 24px
+  5: $spacer * 3      // Extra large spacing - 48px
+);
+
+// Import Bootstrap after variable overrides
+@import "~bootstrap/scss/bootstrap";

@@ -1,4 +1,47 @@
 body {
-  background: black;
-  color: white;
+  background-color: var(--bs-gray-100); /* Light gray background for better readability */
+}
+
+/* Card animations and effects */
+.card {
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Author card image animations */
+.author-card .author-image {
+  transition: transform 0.3s ease-in-out;
+}
+/* Book card image styling */
+.book-card .book-image {
+  height: 300px;
+  object-fit: cover; /* Maintain aspect ratio while filling container */
+  transition: transform 0.3s ease-in-out;
+}
+/* Sale tag positioning */
+.sale-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+/* Utility classes for text truncation */
+.truncate-2-lines,
+.truncate-3-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.truncate-2-lines {
+  line-clamp: 2; /* Limit text to 2 lines */
+}
+
+.truncate-3-lines {
+  line-clamp: 3; /* Limit text to 3 lines */
 }

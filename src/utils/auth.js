@@ -1,13 +1,15 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+
+const auth = getAuth();
 
 const signIn = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider);
 };
 
-const signOut = () => {
-  firebase.auth().signOut();
-};
+const signOutUser = () =>
+  new Promise((resolve, reject) => {
+    signOut(auth).then(resolve).catch(reject);
+  });
 
-export { signIn, signOut };
+export { signIn, signOutUser };

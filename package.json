@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-app-router-with-firebase-auth",
+  "name": "Bookcase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "firebase": "^8.2.0",
-    "next": "14.2.7",
+    "firebase": "^11.1.0",
+    "next": "^14.2.23",
     "prop-types": "^15.8.1",
     "react": "^18",
     "react-bootstrap": "^2.10.4",
