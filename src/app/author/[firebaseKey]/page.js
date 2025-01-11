@@ -17,7 +17,7 @@ export default function ViewAuthor({ params }) {
   const { firebaseKey } = params;
 
   const deleteThisAuthor = () => {
-    if (window.confirm('Are you sure you want to delete this author? This will also delete all their books!')) {
+    if (window.confirm(`This will also delete all ${authorDetails.first_name} ${authorDetails.last_name}'s books!`)) {
       deleteAuthorBooks(firebaseKey).then(() => {
         router.push('/authors');
       });

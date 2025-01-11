@@ -88,7 +88,7 @@ export default function AuthorsPage() {
           <div className="row g-4">
             {authors.map((author) => (
               <div key={author.firebaseKey} className="col-12 col-md-6 col-lg-4">
-                <Link href={`/author/edit/${author.firebaseKey}`} className="text-decoration-none">
+                <Link href={`/author/${author.firebaseKey}`} className="text-decoration-none">
                   <AuthorCard authorObj={author} />
                 </Link>
               </div>
