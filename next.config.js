@@ -15,7 +15,6 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    domains: ['**'],
   },
 };
 
