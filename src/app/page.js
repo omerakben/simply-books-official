@@ -125,7 +125,7 @@ function Home() {
           <div className="row g-4">
             {books.map((book) => (
               <div key={book.firebaseKey} className="col-12 col-md-6 col-lg-4">
-                <Link href={`/book/edit/${book.firebaseKey}`} className="text-decoration-none">
+                <Link href={`/book/${book.firebaseKey}`} className="text-decoration-none">
                   <BookCard bookObj={book} />
                 </Link>
               </div>

@@ -5,7 +5,7 @@ import BookCard from '@/components/BookCard';
 import Loading from '@/components/Loading';
 import { useAuth } from '@/utils/context/authContext';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 
 export default function BooksPage() {
@@ -13,17 +13,17 @@ export default function BooksPage() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  const getAllBooks = () => {
+  const getAllBooks = useCallback(() => {
     setLoading(true);
     getBooks(user.uid).then((data) => {
       setBooks(data);
       setLoading(false);
     });
-  };
+  }, [user.uid]);
 
   useEffect(() => {
     getAllBooks();
-  }, [user.uid]);
+  }, [getAllBooks]);
 
   if (loading) return <Loading />;
 
