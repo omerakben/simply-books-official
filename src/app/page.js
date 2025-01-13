@@ -7,6 +7,7 @@ import { getBooks } from '@/api/bookData';
 import AuthorCard from '@/components/AuthorCard';
 import BookCard from '@/components/BookCard';
 import Loading from '@/components/Loading';
+import Search from '@/components/Search';
 import { useAuth } from '@/utils/context/authContext';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
@@ -18,6 +19,8 @@ function Home() {
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [filteredAuthors, setFilteredAuthors] = useState([]);
 
   const loadData = useCallback(async () => {
     if (!user?.uid) {
@@ -29,7 +32,9 @@ function Home() {
     try {
       const [booksData, authorsData] = await Promise.all([getBooks(user.uid), getAuthors(user.uid)]);
       setBooks(booksData);
+      setFilteredBooks(booksData);
       setAuthors(authorsData);
+      setFilteredAuthors(authorsData);
     } catch (err) {
       console.error('Error fetching data:', err);
       setError(err instanceof Error ? err.message : 'Failed to load data');
@@ -41,6 +46,25 @@ function Home() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  const handleSearch = useCallback(
+    (term) => {
+      if (!term.trim()) {
+        setFilteredBooks(books);
+        setFilteredAuthors(authors);
+        return;
+      }
+
+      const searchTerm = term.toLowerCase();
+
+      const matchedBooks = books.filter((book) => book.title?.toLowerCase().includes(searchTerm) || book.description?.toLowerCase().includes(searchTerm));
+      const matchedAuthors = authors.filter((author) => author.first_name?.toLowerCase().includes(searchTerm) || author.last_name?.toLowerCase().includes(searchTerm) || author.email?.toLowerCase().includes(searchTerm));
+
+      setFilteredBooks(matchedBooks);
+      setFilteredAuthors(matchedAuthors);
+    },
+    [books, authors],
+  );
 
   if (!user) {
     return (
@@ -76,37 +100,47 @@ function Home() {
   return (
     <div className="min-vh-100 bg-light">
       <Container className="py-5">
+        <Search onSearch={handleSearch} type="all" className="mb-4" />
+
         {/* Books Section */}
         <section className="mb-5">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2 className="h3 mb-0">My Books</h2>
           </div>
 
-          {books.length === 0 ? (
+          {filteredBooks.length === 0 ? (
             <div className="text-center py-4">
               <p className="text-muted fs-5">
-                {authors.length === 0 ? (
-                  <>
-                    You need to add authors before adding books! <br />
-                    Click to{' '}
-                    <Link href="/authors" className="text-decoration-none">
-                      Add Your First Author
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    No books found. Add some books to your collection! <br />
-                    Click to{' '}
-                    <Link href="/books" className="text-decoration-none">
-                      Add Your First Book
-                    </Link>
-                  </>
-                )}
+                {(() => {
+                  if (books.length === 0) {
+                    if (authors.length === 0) {
+                      return (
+                        <>
+                          You need to add authors before adding books! <br />
+                          Click to{' '}
+                          <Link href="/authors" className="text-decoration-none">
+                            Add Your First Author
+                          </Link>
+                        </>
+                      );
+                    }
+                    return (
+                      <>
+                        No books found. Add some books to your collection! <br />
+                        Click to{' '}
+                        <Link href="/book/new" className="text-decoration-none">
+                          Add Your First Book
+                        </Link>
+                      </>
+                    );
+                  }
+                  return 'No books match your search.';
+                })()}
               </p>
             </div>
           ) : (
             <div className="row g-4">
-              {books.map((book) => (
+              {filteredBooks.map((book) => (
                 <div key={book.firebaseKey} className="col-12 col-md-6 col-lg-4">
                   <Link href={`/book/${book.firebaseKey}`} className="text-decoration-none">
                     <BookCard bookObj={book} />
@@ -123,19 +157,25 @@ function Home() {
             <h2 className="h3 mb-0">My Authors</h2>
           </div>
 
-          {authors.length === 0 ? (
+          {filteredAuthors.length === 0 ? (
             <div className="text-center py-4">
               <p className="text-muted fs-5">
-                No authors found. Add some authors to your collection! <br />
-                Click to{' '}
-                <Link href="/authors" className="text-decoration-none">
-                  Add Your First Author
-                </Link>
+                {authors.length === 0 ? (
+                  <>
+                    No authors found. Add some authors to your collection! <br />
+                    Click to{' '}
+                    <Link href="/author/new" className="text-decoration-none">
+                      Add Your First Author
+                    </Link>
+                  </>
+                ) : (
+                  'No authors match your search.'
+                )}
               </p>
             </div>
           ) : (
             <div className="row g-4">
-              {authors.map((author) => (
+              {filteredAuthors.map((author) => (
                 <div key={author.firebaseKey} className="col-12 col-md-6 col-lg-4">
                   <Link href={`/author/${author.firebaseKey}`} className="text-decoration-none">
                     <AuthorCard authorObj={author} />

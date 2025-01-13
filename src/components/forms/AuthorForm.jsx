@@ -49,22 +49,22 @@ function AuthorForm({ obj }) {
       <h2 className="mt-5 text-center">{obj && obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
 
       {/* FIRST NAME INPUT  */}
-      <FloatingLabel controlId="floatingInput1" label="First Name" className="mb-3">
+      <FloatingLabel controlId="floatingInput1" label="First Name" className="mb-4">
         <Form.Control type="text" placeholder="Enter first name" name="first_name" value={formInput.first_name} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* LAST NAME INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Last Name" className="mb-3">
+      <FloatingLabel controlId="floatingInput2" label="Last Name" className="mb-4">
         <Form.Control type="text" placeholder="Enter last name" name="last_name" value={formInput.last_name} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* EMAIL INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="Email" className="mb-3">
+      <FloatingLabel controlId="floatingInput3" label="Email" className="mb-4">
         <Form.Control type="email" placeholder="Enter email" name="email" value={formInput.email} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
-      <FloatingLabel controlId="floatingInput4" label="Image URL (optional)" className="mb-3">
+      <FloatingLabel controlId="floatingInput4" label="Image URL (optional)" className="mb-4">
         <Form.Control type="url" placeholder="Enter image URL" name="image" value={formInput.image} onChange={handleChange} />
         <Form.Text className="text-muted">Leave empty to use default avatar</Form.Text>
       </FloatingLabel>
@@ -86,9 +86,11 @@ function AuthorForm({ obj }) {
       />
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit" variant="success" className="w-100">
-        {obj && obj.firebaseKey ? 'Update' : 'Create'} Author
-      </Button>
+      <div className="d-flex justify-content-center">
+        <Button type="submit" variant="success" size="lg">
+          {obj && obj.firebaseKey ? 'Update' : 'Create'} Author
+        </Button>
+      </div>
     </Form>
   );
 }

@@ -55,28 +55,28 @@ function BookForm({ obj = initialState }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="text-black">
-      <h2 className="text-black mt-5">{obj.firebaseKey ? 'Update' : 'Create'}</h2>
+    <Form onSubmit={handleSubmit} className="text-color-primary">
+      <h2 className="mt-5 text-center">{obj.firebaseKey ? 'Update' : 'Create'} Book</h2>
 
       {/* TITLE INPUT  */}
-      <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-3">
+      <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-4">
         <Form.Control type="text" placeholder="Enter a title" name="title" value={formInput.title} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Image URL (optional)" className="mb-3">
+      <FloatingLabel controlId="floatingInput2" label="Image URL (optional)" className="mb-4">
         <Form.Control type="url" placeholder="Enter image URL" name="image" value={formInput.image} onChange={handleChange} />
         <Form.Text className="text-muted">Leave empty to use default book image</Form.Text>
       </FloatingLabel>
 
       {/* PRICE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
-        <Form.Control type="text" placeholder="Enter price" name="price" value={formInput.price} onChange={handleChange} required />
+      <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-4">
+        <Form.Control type="number" placeholder="Enter price" name="price" value={formInput.price} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* AUTHOR SELECT  */}
       <FloatingLabel controlId="floatingSelect" label="Author">
-        <Form.Select aria-label="Author" name="author_id" onChange={handleChange} className="mb-3" value={formInput.author_id || ''} required>
+        <Form.Select aria-label="Author" name="author_id" onChange={handleChange} className="mb-4" value={formInput.author_id || ''} required>
           <option value="">Select an Author</option>
           {authors.map((author) => (
             <option key={author.firebaseKey} value={author.firebaseKey}>
@@ -108,7 +108,11 @@ function BookForm({ obj = initialState }) {
       />
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Book</Button>
+      <div className="d-flex justify-content-center">
+        <Button type="submit" variant="success" size="lg">
+          {obj.firebaseKey ? 'Update' : 'Create'} Book
+        </Button>
+      </div>
     </Form>
   );
 }

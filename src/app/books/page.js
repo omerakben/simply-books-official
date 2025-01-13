@@ -4,68 +4,145 @@ import { getAuthors } from '@/api/authorData';
 import { getBooks } from '@/api/bookData';
 import BookCard from '@/components/BookCard';
 import Loading from '@/components/Loading';
+import Search from '@/components/Search';
 import { useAuth } from '@/utils/context/authContext';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 export default function BooksPage() {
+  const { user } = useAuth();
   const [books, setBooks] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
+  const [error, setError] = useState(null);
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
-  const getAllData = useCallback(() => {
-    setLoading(true);
-    Promise.all([getBooks(user.uid), getAuthors(user.uid)]).then(([booksData, authorsData]) => {
-      setBooks(booksData);
-      setAuthors(authorsData);
+  const getAllData = useCallback(async () => {
+    if (!user?.uid) {
       setLoading(false);
-    });
-  }, [user.uid]);
+      return;
+    }
+
+    setError(null);
+    try {
+      const [booksData, authorsData] = await Promise.all([getBooks(user.uid), getAuthors(user.uid)]);
+      setBooks(booksData);
+      setFilteredBooks(booksData);
+      setAuthors(authorsData);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load data');
+    } finally {
+      setLoading(false);
+    }
+  }, [user?.uid]);
 
   useEffect(() => {
     getAllData();
   }, [getAllData]);
 
+  const handleSearch = useCallback(
+    (term) => {
+      if (!term.trim()) {
+        setFilteredBooks(books);
+        return;
+      }
+
+      const searchTerm = term.toLowerCase();
+      const matchedBooks = books.filter((book) => book.title?.toLowerCase().includes(searchTerm) || book.description?.toLowerCase().includes(searchTerm));
+
+      setFilteredBooks(matchedBooks);
+    },
+    [books],
+  );
+
+  if (!user) {
+    return (
+      <Container className="py-5">
+        <div className="alert alert-warning" role="alert">
+          Please sign in to view books.
+        </div>
+      </Container>
+    );
+  }
+
   if (loading) return <Loading />;
 
+  if (error) {
+    return (
+      <Container className="py-5">
+        <div className="alert alert-danger" role="alert">
+          {error}
+          <button type="button" onClick={getAllData} className="btn btn-link p-0 ms-2">
+            Try again
+          </button>
+        </div>
+      </Container>
+    );
+  }
+
   return (
-    <div className="bg-white min-vh-100">
-      <div className="container py-5">
-        <div className="text-center mb-4">
-          <h1 className="display-4 fw-bold mb-4">Books</h1>
-          {authors.length === 0 ? (
-            <p className="text-muted fs-5">
-              You need to add authors before adding books! <br />
-              Click to{' '}
-              <Link href="/authors" className="text-decoration-none">
-                Add Your First Author
-              </Link>
-            </p>
-          ) : (
-            <>
-              <Link href="/book/new" passHref>
-                <Button variant="success" className="rounded-pill px-4 py-2">
-                  Add New Book
-                </Button>
-              </Link>
-              {books.length === 0 && <p className="text-muted fs-5 mt-3">No books found. Add a book to your collection!</p>}
-            </>
+    <div className="min-vh-100 bg-light">
+      <Container className="py-5">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h1 className="h2 mb-0">Books</h1>
+          {authors.length > 0 && (
+            <Link href="/book/new" passHref>
+              <Button className="rounded-pill px-4 py-2" variant="success">
+                <span className="d-flex align-items-center gap-2">
+                  <Image src="/images/add.svg" alt="Add Book" width={24} height={24} /> Add A Book
+                </span>
+              </Button>
+            </Link>
           )}
         </div>
-        {books.length > 0 && (
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {books.map((book) => (
-              <div key={book.firebaseKey} className="col">
-                <Link href={`/book/${book.firebaseKey}`} className="text-decoration-none h-100 d-block">
+
+        <Search onSearch={handleSearch} type="books" className="mb-4" />
+
+        {filteredBooks.length === 0 ? (
+          <div className="text-center py-4">
+            <p className="text-muted fs-5">
+              {(() => {
+                if (books.length === 0) {
+                  if (authors.length === 0) {
+                    return (
+                      <>
+                        You need to add authors before adding books! <br />
+                        Click to{' '}
+                        <Link href="/authors" className="text-decoration-none">
+                          Add Your First Author
+                        </Link>
+                      </>
+                    );
+                  }
+                  return (
+                    <>
+                      No books found. Add some books to your collection! <br />
+                      Click to{' '}
+                      <Link href="/book/new" className="text-decoration-none">
+                        Add Your First Book
+                      </Link>
+                    </>
+                  );
+                }
+                return 'No books match your search.';
+              })()}
+            </p>
+          </div>
+        ) : (
+          <div className="row g-4">
+            {filteredBooks.map((book) => (
+              <div key={book.firebaseKey} className="col-12 col-md-6 col-lg-4">
+                <Link href={`/book/${book.firebaseKey}`} className="text-decoration-none">
                   <BookCard bookObj={book} />
                 </Link>
               </div>
             ))}
           </div>
         )}
-      </div>
+      </Container>
     </div>
   );
 }

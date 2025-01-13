@@ -43,7 +43,7 @@ export default function NavBar() {
         {/* Brand logo and name */}
         <Link href="/" passHref>
           <Navbar.Brand className="d-flex align-items-center">
-            <Image src={imgError ? '/bookcase-logo-alt.png' : '/bookcase-logo.png'} alt="Bookcase Logo" width={50} height={50} className="rounded-circle" onError={handleImageError} priority />
+            <Image src={imgError ? 'images/books.svg' : '/bookcase-logo.png'} alt="Bookcase Logo" width={50} height={50} className="rounded-circle" onError={handleImageError} priority />
             <span className="ms-2 fw-bold">Bookcase</span>
           </Navbar.Brand>
         </Link>
