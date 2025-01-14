@@ -3,7 +3,7 @@
 A modern digital bookshelf application built with Next.js 14, Firebase, and Bootstrap. Manage your books and authors while enjoying a seamless shopping experience.
 
 🔗 **[Live Demo](https://bookcase-nss.vercel.app/)**
-🔗 **[Loom Video Demo]([https://bookcase-nss.vercel.app/]([https://www.loom.com/share/36477c4a0915474abd0165d14fdb492d?sid=b3b87adb-0e8b-4fca-83fd-effd0da8c42d]))**
+🔗 **[Loom Demo](https://www.loom.com/share/36477c4a0915474abd0165d14fdb492d?sid=b3b87adb-0e8b-4fca-83fd-effd0da8c42d)**
 
 ## 🌟 Features
 
