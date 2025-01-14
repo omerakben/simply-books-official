@@ -40,31 +40,31 @@ A modern digital bookshelf application built with Next.js 14, Firebase, and Boot
 *Google Sign-In authentication page*
 
 ### Home Page & Book Management
-![Home Page](public\images\project\Home.png)
+![Home Page](public/images/project/Home.png)
 *Home page showing the book collection and search functionality*
 
 ### Authors
-![Authors Page](public\images\project\Authors.png)
+![Authors Page](public/images/project/Authors.png)
 *Authors page with author cards and management options*
 
 ### Book Details
-![Book Details](public\images\project\Book.png)
+![Book Details](public/images/project/Book.png)
 *Detailed view of a book with author information*
 
 ### Shopping Cart
-![Shopping Cart](public\images\project\Shopping.png)
+![Shopping Cart](public/images/project/Shopping.png)
 *Shopping cart with items and checkout options*
 
 ### Books
-![Books Collection](public\images\project\Books.png)
+![Books Collection](public/images/project/Books.png)
 *A Book Page*
 
 ### Author
-![An Author](public\images\project\Author.png)
+![An Author](public/images/project/Author.png)
 *An Author Page*
 
 ### Profile
-![Profile](public\images\project\Profile.png)
+![Profile](public/images/project/Profile.png)
 *Profile loaded from Google*
 
 ## 🛠️ Technical Stack
