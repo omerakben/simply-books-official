@@ -36,7 +36,7 @@ A modern digital bookshelf application built with Next.js 14, Firebase, and Boot
 ## 📸 Screenshots
 
 ### Authentication
-![Sign In](public\images\project\Login.png)
+![Sign In](public/images/project/Login.png)
 *Google Sign-In authentication page*
 
 ### Home Page & Book Management
